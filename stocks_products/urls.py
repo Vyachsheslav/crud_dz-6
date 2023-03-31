@@ -25,5 +25,5 @@ from logistic.views import TestView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('logistic.urls')),
-    path('api/v1/test', TestView.as_view())
+    
 ]
