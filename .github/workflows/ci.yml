@@ -22,7 +22,7 @@ jobs:
     - name: Установка python и создание окружения
       uses: actions/setup-python@v3
       with: 
-      python-version: 3.9
+        python-version: 3.9
 
     - name: Установить зависимости 
       run: pip install -r requirements.txt
