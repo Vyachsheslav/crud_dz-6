@@ -1,0 +1,39 @@
+name: Тестирование и развертывание проекта
+
+on:
+  push:
+    'branches': [cicd]
+
+
+jobs:
+  tests:
+    runs-on: ubuntu-20.04
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DEBUG: "0"
+      ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+
+
+steps:
+  - name: Проверяем репозиторий на наличие изменений
+    uses: actions/checkout@v3
+
+
+  - name: Установка python и создание окружения
+    uses: actions/setup-python@v3
+    with: 
+      python-version: 3.9
+
+  - name: Установить зависимости 
+    run: pip install -r requirements.txt
+
+  - name: Линтинг
+    run: flake8 .\logistic\ --exclude=logistic/migrations/
+
+  - name: Тессты
+    run: python manage.py test
+    env:
+      SECRET_KEY: ${{ env.SECRET_KEY }}
+      DEBUG: ${{ env.DEBUG }}
+      ALLOWED_HOSTS: ${{ env.ALLOWED_HOSTS }}
+     

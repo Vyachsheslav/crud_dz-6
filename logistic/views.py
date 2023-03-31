@@ -24,8 +24,6 @@ class StockViewSet(ModelViewSet):
     # при необходимости добавьте параметры фильтрации
 
 
-
 class TestView(APIView):
     def get(self, request):
         return Response('Hello World')
-
